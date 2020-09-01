@@ -1,0 +1,140 @@
+openapi: 3.0.0
+info:
+  title: TestAPI
+  version: '1.0'
+  description: Test API
+  contact:
+    name: a
+    url: http
+    email: vijay.java1@gmail.com
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /test:
+    get:
+      summary: Fetch test results
+      tags:
+        - Test
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+              examples:
+                empReponse:
+                  value:
+                    empId: 0
+                    location: blr
+                empRes2:
+                  value:
+                    empId: 0
+                    location: string
+      operationId: get-test
+      description: Fetch test results
+    post:
+      summary: ''
+      operationId: post-test
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+              examples:
+                empResponse:
+                  value:
+                    empId: 0
+                    location: Blr
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                ErrorResponse:
+                  value:
+                    errorId: failed id
+                    errorCode: failed due to some reason
+      tags:
+        - Test
+      description: post method
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+            examples:
+              empRequest:
+                value:
+                  empId: 0
+                  empName: vijay
+                  empSal: '1000'
+        description: emp req
+components:
+  schemas:
+    EmployeeRequest:
+      title: EmployeeRequest
+      type: object
+      description: EmployeeRequest
+      x-examples:
+        example-1:
+          empId: 0
+          empName: string
+          empSal: string
+        empRequest:
+          empId: 0
+          empName: vijay
+          empSal: '1000'
+        empReq2:
+          empId: 0
+          empName: kumar
+          empSal: dfd
+      properties:
+        empId:
+          description: emp id
+          type: number
+        empName:
+          type: string
+        empSal:
+          type: string
+        Error:
+          $ref: '#/components/schemas/Error'
+      required:
+        - empId
+    EmployeeResponse:
+      title: EmployeeResponse
+      type: object
+      description: EmployeeResponse
+      x-examples:
+        example-1:
+          empId: 0
+          location: string
+        empResponse:
+          empId: 0
+          location: blr
+      properties:
+        empId:
+          type: number
+        location:
+          type: string
+      required:
+        - empId
+    Error:
+      title: Error
+      type: object
+      description: error
+      x-examples:
+        error:
+          errorId: Failed id
+          errorCode: failed due to some reason
+      properties:
+        errorId:
+          type: string
+        errorCode:
+          type: string
+tags:
+  - name: Test
