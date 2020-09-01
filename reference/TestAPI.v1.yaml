@@ -136,5 +136,7 @@ components:
           type: string
         errorCode:
           type: string
+      x-tags:
+        - Test
 tags:
   - name: Test
